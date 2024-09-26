@@ -2,7 +2,7 @@
 .idea
 venv
 */__pycache__/
-db.sqlite3
+
 
 **/migrations/*
 !**/migrations/__init__py

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-16 13:13+0000\n"
+"POT-Creation-Date: 2024-09-18 11:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,29 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps/abouts/models.py:6 apps/products/models.py:15
-msgid "Title"
+#: apps/abouts/models.py:8
+#, fuzzy
+#| msgid "Title"
+msgid "Title UZ"
 msgstr "Sarlavha"
 
 #: apps/abouts/models.py:9
 #, fuzzy
+#| msgid "Title"
+msgid "Title RU"
+msgstr "Sarlavha"
+
+#: apps/abouts/models.py:10
+#, fuzzy
+#| msgid "Title"
+msgid "Title EN"
+msgstr "Sarlavha"
+
+#: apps/abouts/models.py:11
+#, fuzzy
 #| msgid "Short description"
-msgid "Description"
+msgid "Description UZ"
 msgstr "Qisqacha tavsif"
 
-#: apps/abouts/models.py:13 apps/product_imeges/models.py:12
+#: apps/abouts/models.py:12
+#, fuzzy
+#| msgid "Short description"
+msgid "Description RU"
+msgstr "Qisqacha tavsif"
+
+#: apps/abouts/models.py:13
+#, fuzzy
+#| msgid "Short description"
+msgid "Description EN"
+msgstr "Qisqacha tavsif"
+
+#: apps/abouts/models.py:14 apps/product_imeges/models.py:12
 #: venv/lib/python3.10/site-packages/django/db/models/fields/files.py:420
 msgid "Image"
 msgstr "Rasm"
 
-#: apps/categories/models.py:7 apps/feature_values/models.py:13
-#: apps/features/models.py:6 apps/product_comments/models.py:18
-#: apps/sellers/models.py:13
-msgid "Name"
+#: apps/categories/models.py:7
+#, fuzzy
+#| msgid "Name"
+msgid "Name UZ"
 msgstr "Ism"
 
 #: apps/categories/models.py:10
-msgid "Parent"
+#, fuzzy
+#| msgid "Name"
+msgid "Name RU"
+msgstr "Ism"
+
+#: apps/categories/models.py:13
+#, fuzzy
+#| msgid "Name"
+msgid "Name EN"
+msgstr "Ism"
+
+#: apps/categories/models.py:17
+#, fuzzy
+#| msgid "Parent"
+msgid "Parent UZ"
+msgstr "Ota-ona"
+
+#: apps/categories/models.py:24
+#, fuzzy
+#| msgid "Parent"
+msgid "Parent RU"
+msgstr "Ota-ona"
+
+#: apps/categories/models.py:31
+#, fuzzy
+#| msgid "Parent"
+msgid "Parent EN"
 msgstr "Ota-ona"
 
 #: apps/coupons/models.py:5
@@ -52,6 +104,11 @@ msgstr "Kod"
 #| msgid "Feature value"
 msgid "Feature"
 msgstr "Xususiyat qiymati"
+
+#: apps/feature_values/models.py:13 apps/features/models.py:6
+#: apps/product_comments/models.py:18 apps/sellers/models.py:13
+msgid "Name"
+msgstr "Ism"
 
 #: apps/generals/models.py:9
 msgid "Phone1"
@@ -131,6 +188,10 @@ msgstr "Buyurtma raqami"
 msgid "Rating"
 msgstr "Reyting"
 
+#: apps/products/models.py:15
+msgid "Title"
+msgstr "Sarlavha"
+
 #: apps/products/models.py:18
 #, fuzzy
 #| msgid "Rating"
@@ -172,6 +233,61 @@ msgstr "Ayol"
 #: apps/sellers/models.py:11
 msgid "Female"
 msgstr "Erka"
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/forms.py:6
+msgid "Search files"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:5
+msgid "Select an image to embed"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:27
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:29
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:50
+#, fuzzy
+#| msgid "Image"
+msgid "Images in: "
+msgstr "Rasm"
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:62
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:80
+#, fuzzy
+#| msgid "Image"
+msgid "Embed Image"
+msgstr "Rasm"
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:146
+msgid "Play Slideshow"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:147
+msgid "Pause Slideshow"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:148
+msgid "&lsaquo; Previous Photo"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:149
+msgid "Next Photo &rsaquo;"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:150
+msgid "Next &rsaquo;"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/ckeditor_uploader/templates/ckeditor/browse.html:151
+msgid "&lsaquo; Prev"
+msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
@@ -1391,6 +1507,14 @@ msgstr ""
 
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:236
 msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django_ckeditor_5/views.py:77
+msgid "Page not found."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django_ckeditor_5/widgets.py:43
+msgid "Check the correct settings.CKEDITOR_5_CONFIGS "
 msgstr ""
 
 #, fuzzy

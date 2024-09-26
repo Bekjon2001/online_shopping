@@ -6,15 +6,12 @@ from django.utils.translation import gettext_lazy as _, get_language
 class Category(models.Model):
     name_uz = models.CharField(verbose_name=_('Name UZ'),
                                max_length=255,
-                               default=''
                                )
     name_ru = models.CharField(verbose_name=_('Name RU'),
                                max_length=255,
-                               default=''
                                )
     name_en = models.CharField(verbose_name=_('Name EN'),
                                max_length=255,
-                               default=''
                                )
     parent_uz = models.ForeignKey('self',
                                   verbose_name=_('Parent UZ'),
@@ -41,12 +38,12 @@ class Category(models.Model):
     @property
     def name(self):
         lang = get_language().split('-')[0]
-        return getattr(self, f'name_{lang}', '')
+        return getattr(self, f'name_{lang}')
 
     @property
     def description(self):
         lang = get_language()
-        return getattr(self, f'description_{lang}', '')
+        return getattr(self, f'description_{lang}')
 
     def clean(self):
         try:

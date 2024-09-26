@@ -5,9 +5,9 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 class About(models.Model):
-    title_uz = models.CharField(verbose_name=_('Title UZ'), max_length=255, default='')
-    title_ru = models.CharField(verbose_name=_('Title RU'), max_length=255, default='')
-    title_en = models.CharField(verbose_name=_('Title EN'), max_length=255, default='')
+    title_uz = models.CharField(verbose_name=_('Title UZ'), max_length=255)
+    title_ru = models.CharField(verbose_name=_('Title RU'), max_length=255 )
+    title_en = models.CharField(verbose_name=_('Title EN'), max_length=255)
     description_uz = CKEditor5Field(verbose_name=_('Description UZ'), max_length=3000, default='')
     description_ru = CKEditor5Field(verbose_name=_('Description RU'), max_length=3000, default='')
     description_en = CKEditor5Field(verbose_name=_('Description EN'), max_length=3000, default='')
@@ -17,7 +17,7 @@ class About(models.Model):
         # Get the language code, stripping any region part
         lang_code = get_language().split('-')[0]
         # Return the corresponding title, default to an empty string if not found
-        return getattr(self, f'title_{lang_code}', '')
+        return getattr(self, f'title_{lang_code}')
 
     def description(self):
         # Get the language code, stripping any region part

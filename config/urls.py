@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.urls import path,include
 from apps.main import views
 
-from apps.categories.views import category
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,7 +14,8 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout-page'),
     path('cart/', views.cart, name='cart-page'),
     path('shop/', views.shop, name='shop-page'),
-    path('category/', category, name='category-page'),
+    #============ category urls ==========
+    path('category/', include('apps.categories.urls') ),
 
     # ============ about urls ===========
     path('about/', include('apps.abouts.urls')),

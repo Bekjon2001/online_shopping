@@ -3,19 +3,18 @@ from django.db import models
 from django.db.models import CharField, EmailField
 from django.utils.translation import gettext_lazy as _
 
-from apps.products.models import Product
-
 
 class ProductComment(models.Model):
     product = models.ForeignKey(
         verbose_name=_('Product'),
-        to=Product,
+        to='products.Product',
         on_delete=models.CASCADE
     )
     user = models.ForeignKey(
         verbose_name=_('User'),
         to=User,
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL,
+        null=True,
     )
     name = CharField(
         verbose_name=_('Name'),

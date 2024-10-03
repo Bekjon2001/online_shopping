@@ -3,21 +3,24 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
-from apps.products.models import Product
+
 
 
 class ProductRating(models.Model):
     product = models.ForeignKey(
         verbose_name=_('Product'),
-                                to=Product,
-                                on_delete=models.CASCADE
-                                )
+        to='products.Product',
+        on_delete=models.SET_NULL,
+        null=True,
+
+    )
     user = models.ForeignKey(
         verbose_name=_('User'),
-                             to=User,
-                             on_delete=models.CASCADE
-                             )
+        to=User,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
     rating = models.IntegerField(
         verbose_name=_('Rating'),
-                                 default=0,
-                                 validators=[MinValueValidator(1), MaxValueValidator(5)])
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(5)])

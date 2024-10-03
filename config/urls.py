@@ -23,7 +23,7 @@ urlpatterns += i18n_patterns(
     path('contact/', views.contact, name='contact-page'),
     path('checkout/', views.checkout, name='checkout-page'),
     path('cart/', views.cart, name='cart-page'),
-    path('shop/', views.shop, name='shop-page'),
+    path('products/', include('apps.products.urls'), name='shop-page'),
     # ============ category urls ==========
     path('category/', include('apps.categories.urls')),
 

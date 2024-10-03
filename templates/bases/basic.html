@@ -105,8 +105,8 @@
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a href="" class="text-decoration-none">
-                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
-                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                <span class="h1 text-uppercase text-primary bg-dark px-2">{% translate 'Multi' %}</span>
+                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">{% translate 'Shop' %}</span>
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
@@ -176,26 +176,26 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{% url 'home-page' %}"
-                           class="nav-item nav-link {% if page == 'home' %} active {% endif %} ">Home</a>
+                           class="nav-item nav-link {% if page == 'home' %} active {% endif %} ">{% translate 'Home' %}</a>
                         <a href="{% url 'shop-page' %}"
-                           class="nav-item nav-link {% if page == 'shop' %} active {% endif %}">Shop</a>
+                           class="nav-item nav-link {% if page == 'shop' %} active {% endif %}">{% translate 'Shop' %}</a>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle {% if page == 'pages' %} active {% endif %}"
                                data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a href="{% url 'cart-page' %}"
-                                   class="dropdown-item {% if page == 'shopping_card' %} active {% endif %}">Shopping
-                                    Cart</a>
+                                   class="dropdown-item {% if page == 'shopping_card' %} active {% endif %}">{% translate 'Shopping Cart' %}</a>
+
                                 <a href="{% url 'checkout-page' %}"
-                                   class="dropdown-item {% if page == 'checkout' %} active {% endif %}">Checkout</a>
+                                   class="dropdown-item {% if page == 'checkout' %} active {% endif %}">{% translate 'Checkout' %}</a>
 
                             </div>
                         </div>
                         <a href="{% url 'contact-page' %}"
-                           class="nav-item nav-link {% if page == 'contact' %} active {% endif %}">Contact</a>
+                           class="nav-item nav-link {% if page == 'contact' %} active {% endif %}">{% translate 'Contact' %}</a>
                         <a href="{% url 'about-page' %}"
-                           class="nav-item nav-link {% if page == 'about' %} active {% endif %} ">About us</a>
+                           class="nav-item nav-link {% if page == 'about' %} active {% endif %} ">{% translate 'About us' %}</a>
                         {# <a href="{% url '' %}" class="nav-item nav-link">About us</a>#}
 
                     </div>

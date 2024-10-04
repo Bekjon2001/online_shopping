@@ -19,9 +19,11 @@ class Product(models.Model):
         verbose_name=_('Title'),
         max_length=255
     )
-    total_rating = models.IntegerField(
+    total_rating = models.DecimalField(
         verbose_name=_('Total Rating'),
         default=0,
+        max_digits=10,
+        decimal_places=1,
         editable=False
     )
     comment_count = models.IntegerField(
@@ -74,8 +76,9 @@ class Product(models.Model):
         self.aggregate_amounts = ProductRating.objects.filter(
             product_id=self.pk
         ).aggregate(
-            avg=models.Avg('rating', default=0),
+            avg=models.Avg('rating', default=0)
         )
+
         self.total_rating = round(aggregate_amounts['avg'],1)
         self.save()
 

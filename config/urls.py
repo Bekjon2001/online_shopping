@@ -16,6 +16,7 @@ urlpatterns = [
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 urlpatterns += i18n_patterns(
+    path('shop/', views.shop, name='shop-page'),
 
     path('', views.home, name='home-page'),
     path('admin/', admin.site.urls),
@@ -34,3 +35,4 @@ urlpatterns += i18n_patterns(
     path('auth/', include('apps.authentication.urls')),
 
 )
+

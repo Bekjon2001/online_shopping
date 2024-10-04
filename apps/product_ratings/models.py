@@ -10,6 +10,7 @@ class ProductRating(models.Model):
     product = models.ForeignKey(
         verbose_name=_('Product'),
         to='products.Product',
+        related_name='ratings',
         on_delete=models.SET_NULL,
         null=True,
 

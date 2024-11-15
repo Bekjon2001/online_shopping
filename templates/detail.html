@@ -1,0 +1,377 @@
+{% extends 'bases/basic.html' %}
+{% block content %}
+{% load static %}
+
+
+    <!-- Breadcrumb Start -->
+    {% include 'includes/breadcrumb.html' with page='Shopping detail' %}
+    <!-- Breadcrumb End -->
+
+
+    <!-- Shop Detail Start -->
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                            <div class="carousel-item active">
+                                <img class="w-100 h-100" src="{{ product.main_image.url }}" alt="Image">
+                            </div>
+                        {% for product_image in product.images.all %}
+                        	<div class="carousel-item ">
+                                <img class="w-100 h-100" src="{{ product_image.image.url }}" alt="Image">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{ product.title }}</h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            {% for foo in "x"|rjust:product.avg_rating %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                        </div>
+                        <small class="pt-1">({{ product.comments_count }} Reviews)</small>
+                    </div>
+                    <h3 class="font-weight-semi-bold mb-4">{{ product.price }}</h3>
+                    <p class="mb-4">{{ product.short_description }}</p>
+                    <form action="{% url 'products:product_by_feature' product.id %}" method="post">
+                    {% csrf_token %}
+                        {% for feature in features %}
+                            <div class="d-flex mb-3">
+                                <strong class="text-dark mr-3">{{ feature.name }}:</strong>
+                                
+                                    {% for feature_value in feature.values %}
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" {% if forloop.counter == 1 %} checked {% endif %} id="{{ feature_value.id }}" name="{{ feature.id }}" value="{{ feature_value.id  }}">
+                                            <label class="custom-control-label" for="{{ feature_value.id }}">{{ feature_value.name }}</label>
+                                        </div>
+                                    {% endfor %}
+                                
+                            </div> 
+                        {% endfor %}
+                    <button type="submit">get</button>
+                    </form>
+                    <form action="{% url 'carts:create_cart' product.pk %}" method="post">
+                        {% csrf_token %}
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-minus">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control bg-secondary border-0 text-center" name="cart_quantity" value="{{ user_cart_quantity }}">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-plus">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                            <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                            Cart</button>
+                    </div>
+                    </form>    
+                    <div class="d-flex pt-2">
+                        <strong class="text-dark mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="bg-light p-30">
+                    <div class="nav nav-tabs mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                            <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ product.comments_count }})</a>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
+                            <h4 class="mb-3">Product Description</h4>
+                            <p>{{ product.long_description }}</p>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">{{ product.comments_count }} review for "{{ product.title  }}"</h4>
+                                    {% for comment in comments %}
+                                    <div class="media mb-4">
+                                    {% if not comment.user.is_authenticated %}
+                                        <img src="data:image/png;base64,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" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    {% else %}
+                                        <img src="{{ comment.user.user_image.url }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    {% endif %} 
+                                        <div class="media-body">
+                                            <h6>{{ comment.name }}<small> - <i>{{ comment.created_at }}</i></small></h6>
+                                            <div class="text-primary mb-2"> 
+                                                {% for foo in "x"|rjust:comment.rating %}
+                                                <i class="fas fa-star"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <p>{{ comment.message }}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="col-12">
+                                        <nav aria-label="Comment page navigation">
+                                            <ul class="pagination justify-content-center">
+                                                {% if comment_page.has_previous %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?comment_page=1" aria-label="First">
+                                                            <span aria-hidden="true">&laquo;&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?comment_page={{ comment_page.previous_page_number }}" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">&laquo;&laquo;</span>
+                                                    </li>
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">&laquo;</span>
+                                                    </li>
+                                                {% endif %}
+                                    
+                                                <li class="page-item active">
+                                                    <span class="page-link">
+                                                        Page {{ comment_page.number }} of {{ comment_page.paginator.num_pages }}.
+                                                    </span>
+                                                </li>
+                                    
+                                                {% if comment_page.has_next %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?comment_page={{ comment_page.next_page_number }}" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?comment_page={{ comment_page.paginator.num_pages }}" aria-label="Last">
+                                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">&raquo;</span>
+                                                    </li>
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">&raquo;&raquo;</span>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Leave a review</h4>
+                                    {% for message in messages %}
+                                        <p style="color: {% if message.level == 25 %} green{% else %}red{% endif %} "><small>{{ message }}</small></p>
+                                    {% endfor %}
+                                    <form method="post" action="{% url 'comments:create_comment' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product" value="{{ product.pk }}">
+                                        <div class="d-flex my-3">
+                                            <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary">
+                                            <input type="number" name="rating" min="0" max="5">
+                                        </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message">Your Review *</label>
+                                            <textarea name="message" id="message" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                        {% if not user.is_authenticated %}
+                                        	<div class="form-group">
+                                                <label for="name">Your Name *</label>
+                                                <input type="text" name="name" class="form-control" id="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Your Email *</label>
+                                                <input type="email" name="email" class="form-control" id="email">
+                                            </div>
+                                        {% else  %}
+                                                <input type="hidden" name="name" class="form-control" value="{{ user.get_full_name }}">
+                                                <input type="hidden" name="email" class="form-control" value="{{ user.email }}">
+                                        {% endif %}
+                                        <div class="form-group mb-0">
+                                            <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shop Detail End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid py-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel related-carousel">
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="../static/img/product-1.jpg" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="../static/img/product-2.jpg" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="../static/img/product-3.jpg" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="../static/img/product-4.jpg" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="../static/img/product-5.jpg" alt="">
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+{% endblock content %}

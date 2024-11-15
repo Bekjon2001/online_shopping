@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Video background styling */
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: brightness(50%);
+        }
+
+        /* Dark overlay for better text contrast */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        /* Main content container */
+        .content {
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        /* Large, bold 404 message */
+        h1 {
+            font-size: 200px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 10px;
+            color: #f9ca24;
+            text-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Description text */
+        p {
+            font-size: 24px;
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        /* Call-to-action button */
+        a {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #ff4757;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #e84118;
+            transform: translateY(-5px);
+        }
+
+        /* Floating animations for extra flare */
+        .floating-element {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            z-index: 0;
+            animation: floating 10s infinite ease-in-out;
+        }
+
+        .floating-element-1 {
+            width: 100px;
+            height: 100px;
+            bottom: -20px;
+            left: 20%;
+        }
+
+        .floating-element-2 {
+            width: 150px;
+            height: 150px;
+            top: -30px;
+            right: 20%;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        /* Responsive design for mobile and smaller screens */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 100px;
+                letter-spacing: 5px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+
+            a {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video background (replace src with your desired video URL) -->
+    <video autoplay muted loop>
+        <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Dark overlay for better text contrast -->
+    <div class="overlay"></div>
+
+    <!-- Content container -->
+    <div class="content">
+        <h1>404</h1>
+        <p>Sorry, the page you are looking for cannot be found.</p>
+        <a href="{% url 'home-page' %}">Back to Homepage</a>
+    </div>
+
+    <!-- Floating decorative elements -->
+    <div class="floating-element floating-element-1"></div>
+    <div class="floating-element floating-element-2"></div>
+
+</body>
+</html>
